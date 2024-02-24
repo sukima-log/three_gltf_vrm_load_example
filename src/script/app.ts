@@ -47,7 +47,7 @@ function init() {
   /* glbファイルの読み込み */
   const loader = new GLTFLoader();
   loader.load ('assets/models/gltf/book_1204.glb', function(gltf){
-    gltf.scene.scale.set(3, 3, 3);                      // モデルスケール変更
+    gltf.scene.scale.set(6, 6, 6);                      // モデルスケール変更
     gltf.scene.position.set(0, 0, 0);                   // モデル位置変更
     gltf.scene.rotation.set(0, (0 * Math.PI /180), 0);  // モデル向き変更
     scene.add(gltf.scene);                              // モデルをシーンに追加
@@ -74,15 +74,6 @@ function render() {
   renderer.render(scene, camera); // 表示
 }
 
-/* マウスホイールイベント */
-function onMouseWheel(event: WheelEvent) {
-  const direction = event.deltaY < 0 ? 1 : -1;
-  const factor = 0.1 * direction;
-  // カメラをシーンの中心に向かって拡大縮小
-  const newPosition = camera.position.clone().sub(scene.position).multiplyScalar(1 + factor);
-  camera.position.copy(newPosition.add(scene.position));
-}
-
 // 表示領域をウィンドウサイズに合わせる
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -95,5 +86,3 @@ window.addEventListener("load", init);
 
 // リサイズイベント
 window.addEventListener("resize", onResize, false);
-// カメラ操作
-document.addEventListener('wheel', onMouseWheel);
